@@ -2,10 +2,10 @@
 authors = ["Vladas Zakrevksis <146100@gmail.com>"]
 description = "Mobile project generator for test-engine"
 edition = "2024"
-homepage = "https://github.com/gebling-studio/test-mobile"
+homepage = "https://github.com/hilen/test-mobile"
 license = "MIT OR Apache-2.0"
 name = "test-mobile"
-repository = "https://github.com/gebling-studio/test-mobile"
+repository = "https://github.com/hilen/test-mobile"
 version = "0.6.2"
 
 [[bin]]

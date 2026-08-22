@@ -1,15 +1,15 @@
 [package]
 authors = ["Vladas Zakrevksis <146100@gmail.com>"]
-description = "Mobile project generator for test-engine"
+description = "Mobile project generator for hilen"
 edition = "2024"
-homepage = "https://github.com/hilen/test-mobile"
+homepage = "https://github.com/hilen/hilen-mobile"
 license = "MIT OR Apache-2.0"
-name = "test-mobile"
-repository = "https://github.com/hilen/test-mobile"
+name = "hilen-mobile"
+repository = "https://github.com/hilen/hilen-mobile"
 version = "0.6.2"
 
 [[bin]]
-name = "test-mobile"
+name = "hilen-mobile"
 
 [dependencies]
 anyhow = { workspace = true }

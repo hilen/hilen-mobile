@@ -5,12 +5,12 @@
 <dict>
     <key>NSUbiquitousContainers</key>
     <dict>
-        <key>iCloud.TEST_MOBILE_BINDLE_IDENTIFIER</key>
+        <key>iCloud.HILEN_MOBILE_BINDLE_IDENTIFIER</key>
         <dict>
             <key>NSUbiquitousContainerIsDocumentScopePublic</key>
             <true />
             <key>NSUbiquitousContainerName</key>
-            <string>TEST_MOBILE_PROJECT_NAME_CAMEL_CASE</string>
+            <string>HILEN_MOBILE_PROJECT_NAME_CAMEL_CASE</string>
             <key>NSUbiquitousContainerSupportedFolderLevels</key>
             <string>Any</string>
         </dict>

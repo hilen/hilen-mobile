@@ -5,12 +5,12 @@ plugins {
 }
 
 android {
-    namespace = "com.example.TEST_MOBILE_PROJECT_NAME_SNAKE_CASE"
+    namespace = "com.example.HILEN_MOBILE_PROJECT_NAME_SNAKE_CASE"
     compileSdk = 34
     ndkVersion = "27.0.11718014"
 
     defaultConfig {
-        applicationId = "com.example.TEST_MOBILE_PROJECT_NAME_SNAKE_CASE"
+        applicationId = "com.example.HILEN_MOBILE_PROJECT_NAME_SNAKE_CASE"
         // AAudio, which cpal links against, exists since API 26. Linking a
         // lower minSdk against it only moves the failure to .so load time.
         minSdk = 26
@@ -56,9 +56,9 @@ cargo {
     pythonCommand = "python3"
 
     targetDirectory = "../../../target"
-    module  = "../../../TEST_MOBILE_PROJECT_NAME_KEBAB_CASE-android"
+    module  = "../../../HILEN_MOBILE_PROJECT_NAME_KEBAB_CASE-android"
 
-    libname = "TEST_MOBILE_PROJECT_NAME_SNAKE_CASE"
+    libname = "HILEN_MOBILE_PROJECT_NAME_SNAKE_CASE"
     targets = listOf("x86_64", "x86", "arm", "arm64")
 }
 

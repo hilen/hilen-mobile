@@ -1,7 +1,7 @@
 [workspace]
 
-default-members = ["test-mobile"]
-members = ["test-mobile", "test-mobile-game"]
+default-members = ["hilen-mobile"]
+members = ["hilen-mobile", "hilen-mobile-game"]
 
 resolver = "3"
 

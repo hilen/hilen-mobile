@@ -2,7 +2,7 @@
 #![feature(specialization)]
 #![feature(arbitrary_self_types)]
 
-use test_engine::{
+use hilen::{
     App,
     refs::{Own, Weak},
     ui::{Button, Label, Setup, UIManager, View, ViewData, view},
@@ -35,4 +35,4 @@ impl App for MobileApp {
     }
 }
 
-test_engine::register_app!(MobileApp);
+hilen::register_app!(MobileApp);

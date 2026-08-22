@@ -20,7 +20,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
-            <meta-data android:name="android.app.lib_name" android:value="TEST_MOBILE_PROJECT_NAME_SNAKE_CASE"/>
+            <meta-data android:name="android.app.lib_name" android:value="HILEN_MOBILE_PROJECT_NAME_SNAKE_CASE"/>
         </activity>
     </application>
 

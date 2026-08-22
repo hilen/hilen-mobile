@@ -1,4 +1,4 @@
-package com.example.TEST_MOBILE_PROJECT_NAME_SNAKE_CASE
+package com.example.HILEN_MOBILE_PROJECT_NAME_SNAKE_CASE
 
 import org.junit.Test
 

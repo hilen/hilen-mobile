@@ -1,12 +1,12 @@
 [package]
 authors = ["Vladas Zakrevskis <146100@gmail.com>"]
 edition = "2024"
-name = "test-mobile-game"
+name = "hilen-mobile-game"
 version = "0.1.0"
 
 [lib]
 crate-type = ["rlib", "staticlib"]
-name = "test_mobile_game"
+name = "hilen_mobile_game"
 
 [dependencies]
-test-engine = { path = "../../test-engine/test-engine" }
+hilen = { path = "../../hilen/hilen" }

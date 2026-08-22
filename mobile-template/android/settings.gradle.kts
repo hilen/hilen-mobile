@@ -13,5 +13,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "TEST_MOBILE_PROJECT_NAME_TITLE_CASE"
+rootProject.name = "HILEN_MOBILE_PROJECT_NAME_TITLE_CASE"
 include(":app")

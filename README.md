@@ -1,3 +1,3 @@
-# test-mobile
+# hilen-mobile
 
-Mobile project generator for `test-engine`
+Mobile project generator for `hilen`

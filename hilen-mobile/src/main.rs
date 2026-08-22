@@ -55,17 +55,17 @@ fn copy_dir(names: &Names, src: &Path, dest: &Path) -> Result<()> {
     Ok(())
 }
 
-const SNAKE_REPLACE: &str = "TEST_MOBILE_PROJECT_NAME_SNAKE_CASE";
-const CAMEL_REPLACE: &str = "TEST_MOBILE_PROJECT_NAME_CAMEL_CASE";
-const KEBAB_REPLACE: &str = "TEST_MOBILE_PROJECT_NAME_KEBAB_CASE";
-const TITLE_REPLACE: &str = "TEST_MOBILE_PROJECT_NAME_TITLE_CASE";
-const BUNDLE_REPLACE: &str = "TEST_MOBILE_BINDLE_IDENTIFIER";
-const LIB_REPLACE: &str = "TEST_MOBILE_LIB_NAME";
-const CARGO_TARGET: &str = "TEST_MOBILE_CARGO_TARGET";
-const CARGO_PROFILE: &str = "TEST_MOBILE_CARGO_PROFILE";
+const SNAKE_REPLACE: &str = "HILEN_MOBILE_PROJECT_NAME_SNAKE_CASE";
+const CAMEL_REPLACE: &str = "HILEN_MOBILE_PROJECT_NAME_CAMEL_CASE";
+const KEBAB_REPLACE: &str = "HILEN_MOBILE_PROJECT_NAME_KEBAB_CASE";
+const TITLE_REPLACE: &str = "HILEN_MOBILE_PROJECT_NAME_TITLE_CASE";
+const BUNDLE_REPLACE: &str = "HILEN_MOBILE_BINDLE_IDENTIFIER";
+const LIB_REPLACE: &str = "HILEN_MOBILE_LIB_NAME";
+const CARGO_TARGET: &str = "HILEN_MOBILE_CARGO_TARGET";
+const CARGO_PROFILE: &str = "HILEN_MOBILE_CARGO_PROFILE";
 
-const REPO: &str = "https://github.com/hilen/test-mobile";
-const REPO_TEMP: &str = "_test_mobile_temp";
+const REPO: &str = "https://github.com/hilen/hilen-mobile";
+const REPO_TEMP: &str = "_hilen_mobile_temp";
 
 #[derive(Debug)]
 struct Names {
@@ -94,7 +94,7 @@ impl Names {
 }
 
 // Plain git instead of the git2 crate. libgit2 drags a C toolchain into
-// every `cargo install test-mobile`, and a broken host cc breaks installs.
+// every `cargo install hilen-mobile`, and a broken host cc breaks installs.
 fn clone_repo(repo_url: &str, dest_path: &str) -> Result<()> {
     let repo_path = Path::new(dest_path);
     if repo_path.exists() {
@@ -131,14 +131,14 @@ struct Args {
 fn main() -> Result<()> {
     let args = Args::from_args();
 
-    let project_info = read_to_string("test-engine.toml")
-        .or_else(|_| bail!("Please put \'test-engine.toml' file with project info at the project root."))?;
+    let project_info = read_to_string("hilen.toml")
+        .or_else(|_| bail!("Please put \'hilen.toml' file with project info at the project root."))?;
 
     let project_info: Value = project_info.parse()?;
 
     let project_name = project_info["project_name"]
         .as_str()
-        .ok_or(anyhow!("project_name not found in test-engine.toml"))?;
+        .ok_or(anyhow!("project_name not found in hilen.toml"))?;
 
     let temp_dir = TempDir { path: REPO_TEMP };
 

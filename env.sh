@@ -1,6 +1,6 @@
-export ANDROID_LIB_NAME="test-mobile-game"
+export ANDROID_LIB_NAME="hilen-mobile-game"
 export IOS_CARGO_PROFILE="release"
 export PROJECT_NAME="TestMobileGame"
-export APP_NAME="test-mobile-game"
+export APP_NAME="hilen-mobile-game"
 #export CARGO_PROFILE_FOR_PROFILING="release"
 export CARGO_PROFILE_FOR_PROFILING="dev"

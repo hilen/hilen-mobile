@@ -1,4 +1,4 @@
-package com.example.TEST_MOBILE_PROJECT_NAME_SNAKE_CASE
+package com.example.HILEN_MOBILE_PROJECT_NAME_SNAKE_CASE
 
 import android.content.res.AssetManager
 import android.os.Bundle
@@ -24,7 +24,7 @@ class MainActivity : GameActivity() {
 
     companion object {
         init {
-            System.loadLibrary("TEST_MOBILE_PROJECT_NAME_SNAKE_CASE")
+            System.loadLibrary("HILEN_MOBILE_PROJECT_NAME_SNAKE_CASE")
         }
     }
 }

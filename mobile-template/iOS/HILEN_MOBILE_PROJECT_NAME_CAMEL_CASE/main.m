@@ -1,12 +1,12 @@
 //
 //  main.m
-//  TestEngine
+//  Hilen
 //
 //  Created by Vladas Zakrevskis on 02.04.2021.
 //
 
-#include "test-engine.h"
+#include "hilen.h"
 
 int main(int argc, char * argv[]) {
-    return test_engine_start_app();
+    return hilen_start_app();
 }

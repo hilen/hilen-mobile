@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		D1392BEA28CE4325000D8CF5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D1411E8F2617166800F3F18B /* main.m */; };
-		D1392BF428CE4325000D8CF5 /* TEST_MOBILE_LIB_NAME in Frameworks */ = {isa = PBXBuildFile; fileRef = D1918C3A28C02F1C00C46568 /* TEST_MOBILE_LIB_NAME */; };
+		D1392BF428CE4325000D8CF5 /* HILEN_MOBILE_LIB_NAME in Frameworks */ = {isa = PBXBuildFile; fileRef = D1918C3A28C02F1C00C46568 /* HILEN_MOBILE_LIB_NAME */; };
 		D1392BF628CE4325000D8CF5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D1411E8B2617166800F3F18B /* LaunchScreen.storyboard */; };
 		D1392BF728CE4325000D8CF5 /* assets in Resources */ = {isa = PBXBuildFile; fileRef = D17B6FB1262EE65200D61876 /* assets */; };
 		D1392BF828CE4325000D8CF5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D1411E892617166800F3F18B /* Assets.xcassets */; };
@@ -18,20 +18,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		D1392BFC28CE4325000D8CF5 /* TEST_MOBILE_PROJECT_NAME_CAMEL_CASE.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TEST_MOBILE_PROJECT_NAME_CAMEL_CASE.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D1392BFC28CE4325000D8CF5 /* HILEN_MOBILE_PROJECT_NAME_CAMEL_CASE.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HILEN_MOBILE_PROJECT_NAME_CAMEL_CASE.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D1411E892617166800F3F18B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D1411E8C2617166800F3F18B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D1411E8E2617166800F3F18B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D1411E8F2617166800F3F18B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		D1753F532BA3CEC10076158C /* test-engine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "test-engine.h"; sourceTree = "<group>"; };
+		D1753F532BA3CEC10076158C /* hilen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "hilen.h"; sourceTree = "<group>"; };
 		D17B6FB1262EE65200D61876 /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; name = assets; path = ../../../assets; sourceTree = "<group>"; };
-		D17CC3E42617174D00F55C2E /* TEST_MOBILE_PROJECT_NAME_CAMEL_CASE.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TEST_MOBILE_PROJECT_NAME_CAMEL_CASE.entitlements; sourceTree = "<group>"; };
+		D17CC3E42617174D00F55C2E /* HILEN_MOBILE_PROJECT_NAME_CAMEL_CASE.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HILEN_MOBILE_PROJECT_NAME_CAMEL_CASE.entitlements; sourceTree = "<group>"; };
 		D180CC20261C455B00B81CFB /* libSystem.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libSystem.tbd; path = usr/lib/libSystem.tbd; sourceTree = SDKROOT; };
 		D180CC23261C457000B81CFB /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		D180CC24261C457000B81CFB /* libSystem.B.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libSystem.B.tbd; path = usr/lib/libSystem.B.tbd; sourceTree = SDKROOT; };
 		D180CC27261C457000B81CFB /* libSystem_asan.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libSystem_asan.tbd; path = usr/lib/libSystem_asan.tbd; sourceTree = SDKROOT; };
 		D180CC28261C457000B81CFB /* libSystem.B_asan.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libSystem.B_asan.tbd; path = usr/lib/libSystem.B_asan.tbd; sourceTree = SDKROOT; };
-		D1918C3A28C02F1C00C46568 /* TEST_MOBILE_LIB_NAME */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = TEST_MOBILE_LIB_NAME; path = ../../../target/universal/TEST_MOBILE_CARGO_PROFILE/TEST_MOBILE_LIB_NAME; sourceTree = "<group>"; };
+		D1918C3A28C02F1C00C46568 /* HILEN_MOBILE_LIB_NAME */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = HILEN_MOBILE_LIB_NAME; path = ../../../target/universal/HILEN_MOBILE_CARGO_PROFILE/HILEN_MOBILE_LIB_NAME; sourceTree = "<group>"; };
 		D1B6DA7A28039818003C4BF3 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk/System/Library/Frameworks/AudioToolbox.framework; sourceTree = DEVELOPER_DIR; };
 		D1D265C82B7F858000739891 /* Metal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Metal.framework; path = System/Library/Frameworks/Metal.framework; sourceTree = SDKROOT; };
 		D1D265CA2B7F85EC00739891 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -47,7 +47,7 @@
 				D1D1290B2B7F90BE004AF69A /* Metal.framework in Frameworks */,
 				D1D1290A2B7F90BA004AF69A /* UIKit.framework in Frameworks */,
 				D1D129092B7F90B0004AF69A /* AudioToolbox.framework in Frameworks */,
-				D1392BF428CE4325000D8CF5 /* TEST_MOBILE_LIB_NAME in Frameworks */,
+				D1392BF428CE4325000D8CF5 /* HILEN_MOBILE_LIB_NAME in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -57,7 +57,7 @@
 		D1411E712617166700F3F18B = {
 			isa = PBXGroup;
 			children = (
-				D1411E7C2617166700F3F18B /* TEST_MOBILE_PROJECT_NAME_CAMEL_CASE */,
+				D1411E7C2617166700F3F18B /* HILEN_MOBILE_PROJECT_NAME_CAMEL_CASE */,
 				D1411E7B2617166700F3F18B /* Products */,
 				D1D524F2261BB078005C1426 /* Frameworks */,
 			);
@@ -66,24 +66,24 @@
 		D1411E7B2617166700F3F18B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D1392BFC28CE4325000D8CF5 /* TEST_MOBILE_PROJECT_NAME_CAMEL_CASE.app */,
+				D1392BFC28CE4325000D8CF5 /* HILEN_MOBILE_PROJECT_NAME_CAMEL_CASE.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		D1411E7C2617166700F3F18B /* TEST_MOBILE_PROJECT_NAME_CAMEL_CASE */ = {
+		D1411E7C2617166700F3F18B /* HILEN_MOBILE_PROJECT_NAME_CAMEL_CASE */ = {
 			isa = PBXGroup;
 			children = (
 				D17B6FB1262EE65200D61876 /* assets */,
-				D17CC3E42617174D00F55C2E /* TEST_MOBILE_PROJECT_NAME_CAMEL_CASE.entitlements */,
-				D1918C3A28C02F1C00C46568 /* TEST_MOBILE_LIB_NAME */,
+				D17CC3E42617174D00F55C2E /* HILEN_MOBILE_PROJECT_NAME_CAMEL_CASE.entitlements */,
+				D1918C3A28C02F1C00C46568 /* HILEN_MOBILE_LIB_NAME */,
 				D1411E892617166800F3F18B /* Assets.xcassets */,
 				D1411E8B2617166800F3F18B /* LaunchScreen.storyboard */,
 				D1411E8E2617166800F3F18B /* Info.plist */,
 				D1411E8F2617166800F3F18B /* main.m */,
-				D1753F532BA3CEC10076158C /* test-engine.h */,
+				D1753F532BA3CEC10076158C /* hilen.h */,
 			);
-			path = TEST_MOBILE_PROJECT_NAME_CAMEL_CASE;
+			path = HILEN_MOBILE_PROJECT_NAME_CAMEL_CASE;
 			sourceTree = "<group>";
 		};
 		D1D524F2261BB078005C1426 /* Frameworks */ = {
@@ -106,9 +106,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		D1392BE628CE4325000D8CF5 /* TEST_MOBILE_PROJECT_NAME_CAMEL_CASE */ = {
+		D1392BE628CE4325000D8CF5 /* HILEN_MOBILE_PROJECT_NAME_CAMEL_CASE */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D1392BF928CE4325000D8CF5 /* Build configuration list for PBXNativeTarget "TEST_MOBILE_PROJECT_NAME_CAMEL_CASE" */;
+			buildConfigurationList = D1392BF928CE4325000D8CF5 /* Build configuration list for PBXNativeTarget "HILEN_MOBILE_PROJECT_NAME_CAMEL_CASE" */;
 			buildPhases = (
 				D1392BE728CE4325000D8CF5 /* Cargo */,
 				D1392BE828CE4325000D8CF5 /* Sources */,
@@ -119,9 +119,9 @@
 			);
 			dependencies = (
 			);
-			name = TEST_MOBILE_PROJECT_NAME_CAMEL_CASE;
-			productName = TEST_MOBILE_PROJECT_NAME_CAMEL_CASE;
-			productReference = D1392BFC28CE4325000D8CF5 /* TEST_MOBILE_PROJECT_NAME_CAMEL_CASE.app */;
+			name = HILEN_MOBILE_PROJECT_NAME_CAMEL_CASE;
+			productName = HILEN_MOBILE_PROJECT_NAME_CAMEL_CASE;
+			productReference = D1392BFC28CE4325000D8CF5 /* HILEN_MOBILE_PROJECT_NAME_CAMEL_CASE.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -133,7 +133,7 @@
 				LastSwiftUpdateCheck = 1430;
 				LastUpgradeCheck = 1240;
 			};
-			buildConfigurationList = D1411E752617166700F3F18B /* Build configuration list for PBXProject "TEST_MOBILE_PROJECT_NAME_CAMEL_CASE" */;
+			buildConfigurationList = D1411E752617166700F3F18B /* Build configuration list for PBXProject "HILEN_MOBILE_PROJECT_NAME_CAMEL_CASE" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -146,7 +146,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				D1392BE628CE4325000D8CF5 /* TEST_MOBILE_PROJECT_NAME_CAMEL_CASE */,
+				D1392BE628CE4325000D8CF5 /* HILEN_MOBILE_PROJECT_NAME_CAMEL_CASE */,
 			);
 		};
 /* End PBXProject section */
@@ -182,7 +182,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 			shellPath = /bin/sh;
-			shellScript = "pwd\nunset CFLAGS\nunset CXXFLAGS\n~/.cargo/bin/cargo lipo -p TEST_MOBILE_PROJECT_NAME_KEBAB_CASE --release --manifest-path ../../Cargo.toml --verbose\n";
+			shellScript = "pwd\nunset CFLAGS\nunset CXXFLAGS\n~/.cargo/bin/cargo lipo -p HILEN_MOBILE_PROJECT_NAME_KEBAB_CASE --release --manifest-path ../../Cargo.toml --verbose\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -215,20 +215,20 @@
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = TEST_MOBILE_PROJECT_NAME_CAMEL_CASE/TEST_MOBILE_PROJECT_NAME_CAMEL_CASE.entitlements;
+				CODE_SIGN_ENTITLEMENTS = HILEN_MOBILE_PROJECT_NAME_CAMEL_CASE/HILEN_MOBILE_PROJECT_NAME_CAMEL_CASE.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2545JX4S8U;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../\"/**";
-				INFOPLIST_FILE = TEST_MOBILE_PROJECT_NAME_CAMEL_CASE/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = TEST_MOBILE_PROJECT_NAME_CAMEL_CASE;
+				INFOPLIST_FILE = HILEN_MOBILE_PROJECT_NAME_CAMEL_CASE/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = HILEN_MOBILE_PROJECT_NAME_CAMEL_CASE;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = (
-					"\"$(SRCROOT)/../../target/universal/TEST_MOBILE_CARGO_PROFILE\"",
+					"\"$(SRCROOT)/../../target/universal/HILEN_MOBILE_CARGO_PROFILE\"",
 					"$(SDKROOT)/usr/lib/swift",
 				);
 				ONLY_ACTIVE_ARCH = NO;
@@ -236,7 +236,7 @@
 					"-Wl,-weak_framework,CoreGraphics",
 					"-Wl,-weak_framework,Security",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = TEST_MOBILE_BINDLE_IDENTIFIER;
+				PRODUCT_BUNDLE_IDENTIFIER = HILEN_MOBILE_BINDLE_IDENTIFIER;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -249,21 +249,21 @@
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = TEST_MOBILE_PROJECT_NAME_CAMEL_CASE/TEST_MOBILE_PROJECT_NAME_CAMEL_CASE.entitlements;
+				CODE_SIGN_ENTITLEMENTS = HILEN_MOBILE_PROJECT_NAME_CAMEL_CASE/HILEN_MOBILE_PROJECT_NAME_CAMEL_CASE.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2545JX4S8U;
 				EXCLUDED_ARCHS = "";
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../\"/**";
-				INFOPLIST_FILE = TEST_MOBILE_PROJECT_NAME_CAMEL_CASE/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = TEST_MOBILE_PROJECT_NAME_CAMEL_CASE;
+				INFOPLIST_FILE = HILEN_MOBILE_PROJECT_NAME_CAMEL_CASE/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = HILEN_MOBILE_PROJECT_NAME_CAMEL_CASE;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = (
-					"\"$(SRCROOT)/../../target/universal/TEST_MOBILE_CARGO_PROFILE\"",
+					"\"$(SRCROOT)/../../target/universal/HILEN_MOBILE_CARGO_PROFILE\"",
 					"$(SDKROOT)/usr/lib/swift",
 				);
 				ONLY_ACTIVE_ARCH = NO;
@@ -271,7 +271,7 @@
 					"-Wl,-weak_framework,CoreGraphics",
 					"-Wl,-weak_framework,Security",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = TEST_MOBILE_BINDLE_IDENTIFIER;
+				PRODUCT_BUNDLE_IDENTIFIER = HILEN_MOBILE_BINDLE_IDENTIFIER;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -393,7 +393,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		D1392BF928CE4325000D8CF5 /* Build configuration list for PBXNativeTarget "TEST_MOBILE_PROJECT_NAME_CAMEL_CASE" */ = {
+		D1392BF928CE4325000D8CF5 /* Build configuration list for PBXNativeTarget "HILEN_MOBILE_PROJECT_NAME_CAMEL_CASE" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D1392BFA28CE4325000D8CF5 /* Debug */,
@@ -402,7 +402,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D1411E752617166700F3F18B /* Build configuration list for PBXProject "TEST_MOBILE_PROJECT_NAME_CAMEL_CASE" */ = {
+		D1411E752617166700F3F18B /* Build configuration list for PBXProject "HILEN_MOBILE_PROJECT_NAME_CAMEL_CASE" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D1411E912617166800F3F18B /* Debug */,

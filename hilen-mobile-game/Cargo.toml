@@ -9,4 +9,5 @@ crate-type = ["rlib", "staticlib"]
 name = "hilen_mobile_game"
 
 [dependencies]
-hilen = { path = "../../hilen/hilen" }
+hilen = { git = "https://github.com/hilen/hilen.git", rev = "cf11e44d" }
+#hilen = { path = "../../hilen/hilen" }

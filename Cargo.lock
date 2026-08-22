@@ -1958,6 +1958,7 @@ checksum = "7f24254aa9a54b5c858eaee2f5bccdb46aaf0e486a595ed5fd8f86ba55232a70"
 [[package]]
 name = "hilen"
 version = "0.1.0"
+source = "git+https://github.com/hilen/hilen.git?rev=cf11e44d#cf11e44d00c2f736762a3ccc6430f9529d0ffcc5"
 dependencies = [
  "android_logger",
  "anyhow",
@@ -2825,6 +2826,7 @@ checksum = "7a79a3332a6609480d7d0c9eab957bca6b455b91bb84e66d19f5ff66294b85b8"
 [[package]]
 name = "level-proc"
 version = "0.1.0"
+source = "git+https://github.com/hilen/hilen.git?rev=cf11e44d#cf11e44d00c2f736762a3ccc6430f9529d0ffcc5"
 dependencies = [
  "quote",
  "syn 2.0.111",
@@ -4040,6 +4042,7 @@ checksum = "7edddbd0b52d732b21ad9a5fab5c704c14cd949e5e9a1ec5929a24fded1b904c"
 [[package]]
 name = "plat"
 version = "0.10.0"
+source = "git+https://github.com/hilen/hilen.git?rev=cf11e44d#cf11e44d00c2f736762a3ccc6430f9529d0ffcc5"
 dependencies = [
  "cfg_aliases",
 ]
@@ -6223,6 +6226,7 @@ checksum = "b6f5e870be6c3b371b77fe0ee0bafb859fa4964b4404c27de1d380043c4dda20"
 [[package]]
 name = "ui-proc"
 version = "0.1.0"
+source = "git+https://github.com/hilen/hilen.git?rev=cf11e44d#cf11e44d00c2f736762a3ccc6430f9529d0ffcc5"
 dependencies = [
  "parking_lot",
  "quote",

@@ -15,6 +15,7 @@
 		D1D129092B7F90B0004AF69A /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1D265DA2B7F8DF100739891 /* AudioToolbox.framework */; };
 		D1D1290A2B7F90BA004AF69A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1D265CA2B7F85EC00739891 /* UIKit.framework */; };
 		D1D1290B2B7F90BE004AF69A /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1D265C82B7F858000739891 /* Metal.framework */; };
+		D1D1290C2B7F90C0004AF69A /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1D265DB2B7F8E0000739891 /* AVFoundation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		D1D265C82B7F858000739891 /* Metal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Metal.framework; path = System/Library/Frameworks/Metal.framework; sourceTree = SDKROOT; };
 		D1D265CA2B7F85EC00739891 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		D1D265DA2B7F8DF100739891 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		D1D265DB2B7F8E0000739891 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		D1D524F3261BB078005C1426 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -47,6 +49,7 @@
 				D1D1290B2B7F90BE004AF69A /* Metal.framework in Frameworks */,
 				D1D1290A2B7F90BA004AF69A /* UIKit.framework in Frameworks */,
 				D1D129092B7F90B0004AF69A /* AudioToolbox.framework in Frameworks */,
+				D1D1290C2B7F90C0004AF69A /* AVFoundation.framework in Frameworks */,
 				D1392BF428CE4325000D8CF5 /* HILEN_MOBILE_LIB_NAME in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -90,6 +93,7 @@
 			isa = PBXGroup;
 			children = (
 				D1D265DA2B7F8DF100739891 /* AudioToolbox.framework */,
+				D1D265DB2B7F8E0000739891 /* AVFoundation.framework */,
 				D1D265CA2B7F85EC00739891 /* UIKit.framework */,
 				D1D265C82B7F858000739891 /* Metal.framework */,
 				D1B6DA7A28039818003C4BF3 /* AudioToolbox.framework */,

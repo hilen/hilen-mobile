@@ -16,14 +16,17 @@ jobs:
       fail-fast: false
       matrix:
         target: [
-          { runner: ubuntu-latest }
+          { runner: tc }
         ]
-    runs-on: ${{ matrix.target.runner }}
+    runs-on: [self-hosted, "${{ matrix.target.runner }}"]
     steps:
       - uses: actions/checkout@v4
         with:
           token: ${{secrets.GITHUB_TOKEN}}
           submodules: recursive
+
+      - name: Add the NixOS tool folders to PATH
+        run: echo "/run/current-system/sw/bin" >> "$GITHUB_PATH"
 
       - name: Build
         run: cargo build

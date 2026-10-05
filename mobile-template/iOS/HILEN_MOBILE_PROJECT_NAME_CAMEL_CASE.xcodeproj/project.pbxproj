@@ -239,6 +239,15 @@
 				OTHER_LDFLAGS = (
 					"-Wl,-weak_framework,CoreGraphics",
 					"-Wl,-weak_framework,Security",
+					"-framework",
+					VideoToolbox,
+					"-framework",
+					CoreMedia,
+					"-framework",
+					CoreVideo,
+					"-framework",
+					MediaPlayer,
+					"-lz",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = HILEN_MOBILE_BINDLE_IDENTIFIER;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -274,6 +283,15 @@
 				OTHER_LDFLAGS = (
 					"-Wl,-weak_framework,CoreGraphics",
 					"-Wl,-weak_framework,Security",
+					"-framework",
+					VideoToolbox,
+					"-framework",
+					CoreMedia,
+					"-framework",
+					CoreVideo,
+					"-framework",
+					MediaPlayer,
+					"-lz",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = HILEN_MOBILE_BINDLE_IDENTIFIER;
 				PRODUCT_NAME = "$(TARGET_NAME)";

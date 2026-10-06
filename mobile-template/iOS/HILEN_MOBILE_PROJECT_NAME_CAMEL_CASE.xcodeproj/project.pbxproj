@@ -16,6 +16,7 @@
 		D1D1290A2B7F90BA004AF69A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1D265CA2B7F85EC00739891 /* UIKit.framework */; };
 		D1D1290B2B7F90BE004AF69A /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1D265C82B7F858000739891 /* Metal.framework */; };
 		D1D1290C2B7F90C0004AF69A /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1D265DB2B7F8E0000739891 /* AVFoundation.framework */; };
+		E7A000000000000000000001 /* SystemInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7A000000000000000000002 /* SystemInput.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +40,8 @@
 		D1D265DA2B7F8DF100739891 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		D1D265DB2B7F8E0000739891 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		D1D524F3261BB078005C1426 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		E7A000000000000000000002 /* SystemInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemInput.swift; sourceTree = "<group>"; };
+		E7A000000000000000000003 /* SystemInput.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SystemInput.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +57,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E7A000000000000000000004 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -61,6 +71,7 @@
 			isa = PBXGroup;
 			children = (
 				D1411E7C2617166700F3F18B /* HILEN_MOBILE_PROJECT_NAME_CAMEL_CASE */,
+				E7A000000000000000000005 /* SystemInput */,
 				D1411E7B2617166700F3F18B /* Products */,
 				D1D524F2261BB078005C1426 /* Frameworks */,
 			);
@@ -70,6 +81,7 @@
 			isa = PBXGroup;
 			children = (
 				D1392BFC28CE4325000D8CF5 /* HILEN_MOBILE_PROJECT_NAME_CAMEL_CASE.app */,
+				E7A000000000000000000003 /* SystemInput.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -107,6 +119,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		E7A000000000000000000005 /* SystemInput */ = {
+			isa = PBXGroup;
+			children = (
+				E7A000000000000000000002 /* SystemInput.swift */,
+			);
+			path = SystemInput;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -127,6 +147,22 @@
 			productName = HILEN_MOBILE_PROJECT_NAME_CAMEL_CASE;
 			productReference = D1392BFC28CE4325000D8CF5 /* HILEN_MOBILE_PROJECT_NAME_CAMEL_CASE.app */;
 			productType = "com.apple.product-type.application";
+		};
+		E7A000000000000000000006 /* SystemInput */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E7A000000000000000000007 /* Build configuration list for PBXNativeTarget "SystemInput" */;
+			buildPhases = (
+				E7A000000000000000000008 /* Sources */,
+				E7A000000000000000000004 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SystemInput;
+			productName = SystemInput;
+			productReference = E7A000000000000000000003 /* SystemInput.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
 
@@ -151,6 +187,7 @@
 			projectRoot = "";
 			targets = (
 				D1392BE628CE4325000D8CF5 /* HILEN_MOBILE_PROJECT_NAME_CAMEL_CASE */,
+				E7A000000000000000000006 /* SystemInput */,
 			);
 		};
 /* End PBXProject section */
@@ -196,6 +233,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				D1392BEA28CE4325000D8CF5 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E7A000000000000000000008 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E7A000000000000000000001 /* SystemInput.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -412,6 +457,34 @@
 			};
 			name = Release;
 		};
+		E7A000000000000000000009 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 2545JX4S8U;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				PRODUCT_BUNDLE_IDENTIFIER = HILEN_MOBILE_BINDLE_IDENTIFIER.systeminput;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		E7A00000000000000000000A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 2545JX4S8U;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				PRODUCT_BUNDLE_IDENTIFIER = HILEN_MOBILE_BINDLE_IDENTIFIER.systeminput;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -429,6 +502,15 @@
 			buildConfigurations = (
 				D1411E912617166800F3F18B /* Debug */,
 				D1411E922617166800F3F18B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E7A000000000000000000007 /* Build configuration list for PBXNativeTarget "SystemInput" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E7A000000000000000000009 /* Debug */,
+				E7A00000000000000000000A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

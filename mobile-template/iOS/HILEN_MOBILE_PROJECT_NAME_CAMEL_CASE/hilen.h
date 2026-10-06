@@ -12,6 +12,8 @@
 int hilen_start_app(void);
 
 
+// The 3 functions around `text_field` serve engine revisions that do not carry
+// their own system text field yet. A newer engine never calls them.
 UITextField* text_field = nil;
 
 void hilen_ios_show_alert(const char* message) {

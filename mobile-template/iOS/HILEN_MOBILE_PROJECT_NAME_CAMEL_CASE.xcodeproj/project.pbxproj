@@ -12,6 +12,7 @@
 		D1392BF628CE4325000D8CF5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D1411E8B2617166800F3F18B /* LaunchScreen.storyboard */; };
 		D1392BF728CE4325000D8CF5 /* assets in Resources */ = {isa = PBXBuildFile; fileRef = D17B6FB1262EE65200D61876 /* assets */; };
 		D1392BF828CE4325000D8CF5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D1411E892617166800F3F18B /* Assets.xcassets */; };
+		D1A7C0022F9B000000A1B2C3 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = D1A7C0012F9B000000A1B2C3 /* PrivacyInfo.xcprivacy */; };
 		D1D129092B7F90B0004AF69A /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1D265DA2B7F8DF100739891 /* AudioToolbox.framework */; };
 		D1D1290A2B7F90BA004AF69A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1D265CA2B7F85EC00739891 /* UIKit.framework */; };
 		D1D1290B2B7F90BE004AF69A /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1D265C82B7F858000739891 /* Metal.framework */; };
@@ -24,6 +25,7 @@
 		D1411E892617166800F3F18B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D1411E8C2617166800F3F18B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D1411E8E2617166800F3F18B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D1A7C0012F9B000000A1B2C3 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		D1411E8F2617166800F3F18B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		D1753F532BA3CEC10076158C /* hilen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "hilen.h"; sourceTree = "<group>"; };
 		D17B6FB1262EE65200D61876 /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; name = assets; path = ../../../assets; sourceTree = "<group>"; };
@@ -95,6 +97,7 @@
 				D1411E892617166800F3F18B /* Assets.xcassets */,
 				D1411E8B2617166800F3F18B /* LaunchScreen.storyboard */,
 				D1411E8E2617166800F3F18B /* Info.plist */,
+				D1A7C0012F9B000000A1B2C3 /* PrivacyInfo.xcprivacy */,
 				D1411E8F2617166800F3F18B /* main.m */,
 				D1753F532BA3CEC10076158C /* hilen.h */,
 			);
@@ -200,6 +203,7 @@
 				D1392BF628CE4325000D8CF5 /* LaunchScreen.storyboard in Resources */,
 				D1392BF728CE4325000D8CF5 /* assets in Resources */,
 				D1392BF828CE4325000D8CF5 /* Assets.xcassets in Resources */,
+				D1A7C0022F9B000000A1B2C3 /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

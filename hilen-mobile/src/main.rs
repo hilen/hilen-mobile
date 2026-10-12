@@ -1,5 +1,7 @@
 #![feature(exit_status_error)]
 
+mod ios_options;
+
 use std::{
     fmt::Display,
     fs::{File, copy, create_dir, read_dir, read_to_string, remove_dir_all, remove_file},
@@ -12,6 +14,8 @@ use anyhow::{Result, anyhow, bail};
 use convert_case::{Case, Casing};
 use structopt::StructOpt;
 use toml::Value;
+
+use crate::ios_options::IosOptions;
 
 fn copy_file(names: &Names, src: &Path, dest: &Path) -> Result<()> {
     if src.to_string_lossy().contains(".DS_Store") {
@@ -140,6 +144,9 @@ fn main() -> Result<()> {
         .as_str()
         .ok_or(anyhow!("project_name not found in hilen.toml"))?;
 
+    // Read before the old project is deleted, a wrong setting must not cost it.
+    let ios_options = IosOptions::read(&project_info)?;
+
     let temp_dir = TempDir { path: REPO_TEMP };
 
     let template_path = if let Some(path) = args.path {
@@ -165,6 +172,8 @@ fn main() -> Result<()> {
     let dest = Path::new("mobile");
 
     copy_dir(&names, &template_path, dest)?;
+
+    ios_options.apply(&dest.join("iOS").join(&names.camel), &names.camel)?;
 
     let app_icon_path = PathBuf::from("Assets/AppIcon.appiconset");
 

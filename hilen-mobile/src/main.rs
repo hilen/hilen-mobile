@@ -1,6 +1,7 @@
 #![feature(exit_status_error)]
 
 mod ios_options;
+mod links;
 
 use std::{
     fmt::Display,
@@ -15,7 +16,7 @@ use convert_case::{Case, Casing};
 use structopt::StructOpt;
 use toml::Value;
 
-use crate::ios_options::IosOptions;
+use crate::{ios_options::IosOptions, links::LinkOptions};
 
 fn copy_file(names: &Names, src: &Path, dest: &Path) -> Result<()> {
     if src.to_string_lossy().contains(".DS_Store") {
@@ -146,6 +147,7 @@ fn main() -> Result<()> {
 
     // Read before the old project is deleted, a wrong setting must not cost it.
     let ios_options = IosOptions::read(&project_info)?;
+    let link_options = LinkOptions::read(&project_info, project_name)?;
 
     let temp_dir = TempDir { path: REPO_TEMP };
 
@@ -174,6 +176,11 @@ fn main() -> Result<()> {
     copy_dir(&names, &template_path, dest)?;
 
     ios_options.apply(&dest.join("iOS").join(&names.camel), &names.camel)?;
+
+    if let Some(links) = &link_options {
+        links.apply_ios(&dest.join("iOS").join(&names.camel), &names.camel)?;
+        links.apply_android(&dest.join("android"))?;
+    }
 
     let app_icon_path = PathBuf::from("Assets/AppIcon.appiconset");
 

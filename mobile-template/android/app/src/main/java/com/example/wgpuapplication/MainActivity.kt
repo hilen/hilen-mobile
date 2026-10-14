@@ -1,5 +1,6 @@
 package com.example.HILEN_MOBILE_PROJECT_NAME_SNAKE_CASE
 
+import android.content.Intent
 import android.content.res.AssetManager
 import android.os.Bundle
 import android.view.View
@@ -16,6 +17,14 @@ class MainActivity : GameActivity() {
 
         setFilesDir(filesDir.toString())
         setAssetManager(getResources().assets);
+    }
+
+    // A link while the app runs comes here, the activity is singleTask
+    // when hilen.toml has a [links] table. The engine reads the intent of
+    // the activity when the app comes to the front.
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        setIntent(intent)
     }
 
     private external fun setAssetManager(assetManager: AssetManager);

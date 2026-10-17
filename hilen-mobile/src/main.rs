@@ -3,6 +3,7 @@
 mod bluetooth;
 mod ios_options;
 mod links;
+mod widget;
 
 use std::{
     fmt::Display,
@@ -17,7 +18,12 @@ use convert_case::{Case, Casing};
 use structopt::StructOpt;
 use toml::Value;
 
-use crate::{bluetooth::BluetoothOptions, ios_options::IosOptions, links::LinkOptions};
+use crate::{
+    bluetooth::BluetoothOptions,
+    ios_options::IosOptions,
+    links::LinkOptions,
+    widget::{WidgetNames, WidgetOptions},
+};
 
 fn copy_file(names: &Names, src: &Path, dest: &Path) -> Result<()> {
     if src.to_string_lossy().contains(".DS_Store") {
@@ -150,6 +156,8 @@ fn main() -> Result<()> {
     let ios_options = IosOptions::read(&project_info)?;
     let link_options = LinkOptions::read(&project_info, project_name)?;
     let bluetooth_options = BluetoothOptions::read(&project_info)?;
+    let widget_options = WidgetOptions::read(&project_info)?;
+    let widget_files = widget_options.as_ref().map(WidgetOptions::files).transpose()?;
 
     let temp_dir = TempDir { path: REPO_TEMP };
 
@@ -187,6 +195,16 @@ fn main() -> Result<()> {
     if let Some(bluetooth) = &bluetooth_options {
         bluetooth.apply_ios(&dest.join("iOS").join(&names.camel))?;
         bluetooth.apply_android(&dest.join("android"))?;
+    }
+
+    if let (Some(widget), Some(files)) = (&widget_options, &widget_files) {
+        let names = WidgetNames {
+            camel:   &names.camel,
+            title:   &names.title,
+            bundle:  &names.bundle,
+            version: project_info.get("version").and_then(Value::as_str).unwrap_or("1.0"),
+        };
+        widget.apply_ios(&dest.join("iOS"), &names, files)?;
     }
 
     let app_icon_path = PathBuf::from("Assets/AppIcon.appiconset");

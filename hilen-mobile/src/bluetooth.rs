@@ -74,10 +74,7 @@ impl BluetoothOptions {
     /// Writes the permissions into the generated Android project,
     /// `mobile/android`.
     pub fn apply_android(&self, android_dir: &Path) -> Result<()> {
-        change(
-            &android_dir.join("app/src/main/AndroidManifest.xml"),
-            manifest,
-        )
+        change(&android_dir.join("app/src/main/AndroidManifest.xml"), manifest)
     }
 
     fn info_plist(&self, text: &str) -> Result<String> {
@@ -101,7 +98,10 @@ fn change(path: &Path, edit: impl Fn(&str) -> Result<String>) -> Result<()> {
     let text = read_to_string(path).with_context(|| format!("{} not found", path.display()))?;
     let changed = edit(&text).with_context(|| path.display().to_string())?;
     write(path, changed)?;
-    println!("Applied the [bluetooth] table of hilen.toml to {}", path.display());
+    println!(
+        "Applied the [bluetooth] table of hilen.toml to {}",
+        path.display()
+    );
     Ok(())
 }
 

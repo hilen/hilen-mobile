@@ -5,6 +5,7 @@
 //! [ios]
 //! file_sharing = false
 //! iphone_orientations = ["portrait"]
+//! push = true
 //! ```
 //!
 //! The template is cloned from the repo at run time and an installed tool can
@@ -31,6 +32,9 @@ const FILE_SHARING_INFO: [&str; 3] = [
     "UIFileSharingEnabled",
     "LSSupportsOpeningDocumentsInPlace",
 ];
+
+/// An archive for the App Store turns `development` into `production`.
+const APS_ENVIRONMENT: &str = "aps-environment";
 
 const FILE_SHARING_ENTITLEMENTS: [&str; 3] = [
     "com.apple.developer.icloud-container-identifiers",
@@ -67,6 +71,9 @@ pub struct IosOptions {
     /// The orientations of an iPhone. The iPad keeps the ones of the
     /// template. Not set leaves the template, the same on both.
     iphone_orientations: Option<Vec<Orientation>>,
+    /// `true` lets the app take remote notifications from APNs.
+    #[serde(default)]
+    push:                bool,
 }
 
 impl IosOptions {
@@ -139,11 +146,16 @@ impl IosOptions {
 
     /// The changed entitlements file, `None` when no setting touches it.
     fn entitlements(&self, text: &str) -> Result<Option<String>> {
-        if !self.no_file_sharing() {
+        if !self.no_file_sharing() && !self.push {
             return Ok(None);
         }
         let mut dict = parse(text)?;
-        dict.retain(|key, _| !FILE_SHARING_ENTITLEMENTS.contains(&key.as_str()));
+        if self.no_file_sharing() {
+            dict.retain(|key, _| !FILE_SHARING_ENTITLEMENTS.contains(&key.as_str()));
+        }
+        if self.push {
+            dict.insert(APS_ENVIRONMENT.to_string(), Plist::from("development"));
+        }
         print(dict).map(Some)
     }
 }
@@ -167,7 +179,8 @@ mod test {
     use toml::Value;
 
     use super::{
-        FILE_SHARING_ENTITLEMENTS, FILE_SHARING_INFO, IPAD_ORIENTATIONS, IosOptions, ORIENTATIONS, parse,
+        APS_ENVIRONMENT, FILE_SHARING_ENTITLEMENTS, FILE_SHARING_INFO, IPAD_ORIENTATIONS, IosOptions,
+        ORIENTATIONS, parse,
     };
 
     // The real template files, so a change of the template is tested too.
@@ -203,7 +216,12 @@ mod test {
 
     #[test]
     fn no_settings_change_no_file() -> Result<()> {
-        for toml in ["project_name = \"app\"", "[ios]", "[ios]\nfile_sharing = true"] {
+        for toml in [
+            "project_name = \"app\"",
+            "[ios]",
+            "[ios]\nfile_sharing = true",
+            "[ios]\npush = false",
+        ] {
             let options = options(toml)?;
             assert_eq!(options.info_plist(INFO)?, None, "{toml}");
             assert_eq!(options.entitlements(ENTITLEMENTS)?, None, "{toml}");
@@ -269,6 +287,39 @@ mod test {
         ] {
             assert!(!text.contains(word), "{word}");
         }
+        Ok(())
+    }
+
+    #[test]
+    fn push_adds_the_aps_environment() -> Result<()> {
+        let options = options("[ios]\npush = true")?;
+        assert_eq!(options.info_plist(INFO)?, None);
+
+        let before = parse(ENTITLEMENTS)?;
+        let entitlements = parse(&options.entitlements(ENTITLEMENTS)?.expect("entitlements not changed"))?;
+        assert_eq!(
+            entitlements.get(APS_ENVIRONMENT).and_then(Plist::as_string),
+            Some("development")
+        );
+        // Push alone keeps the file sharing keys of the template.
+        for (key, value) in &before {
+            assert_eq!(entitlements.get(key), Some(value), "{key}");
+        }
+        Ok(())
+    }
+
+    #[test]
+    fn push_with_file_sharing_off() -> Result<()> {
+        let options = options("[ios]\nfile_sharing = false\npush = true")?;
+        let entitlements = parse(&options.entitlements(ENTITLEMENTS)?.unwrap())?;
+        assert_eq!(
+            keys(&entitlements),
+            [
+                "com.apple.security.app-sandbox",
+                "com.apple.security.network.client",
+                APS_ENVIRONMENT,
+            ]
+        );
         Ok(())
     }
 

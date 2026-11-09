@@ -1,6 +1,7 @@
 #![feature(exit_status_error)]
 
 mod bluetooth;
+mod intents;
 mod ios_options;
 mod links;
 mod widget;
@@ -20,6 +21,7 @@ use toml::Value;
 
 use crate::{
     bluetooth::BluetoothOptions,
+    intents::IntentOptions,
     ios_options::IosOptions,
     links::LinkOptions,
     widget::{WidgetNames, WidgetOptions},
@@ -157,6 +159,7 @@ fn main() -> Result<()> {
     let link_options = LinkOptions::read(&project_info, project_name)?;
     let bluetooth_options = BluetoothOptions::read(&project_info)?;
     let widget_options = WidgetOptions::read(&project_info)?;
+    let intent_options = IntentOptions::read(&project_info)?;
     let widget_files = widget_options.as_ref().map(WidgetOptions::files).transpose()?;
 
     let temp_dir = TempDir { path: REPO_TEMP };
@@ -205,6 +208,11 @@ fn main() -> Result<()> {
             version: project_info.get("version").and_then(Value::as_str).unwrap_or("1.0"),
         };
         widget.apply_ios(&dest.join("iOS"), &names, files)?;
+    }
+
+    // After the widget, which may have put the Swift version into the app.
+    if let Some(intents) = &intent_options {
+        intents.apply_ios(&dest.join("iOS"), &names.camel, &names.bundle)?;
     }
 
     let app_icon_path = PathBuf::from("Assets/AppIcon.appiconset");

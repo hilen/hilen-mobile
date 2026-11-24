@@ -8,9 +8,32 @@
 //  local socket and asks, one line per request, and this side answers `ok` or
 //  `error` after the action is done.
 //
+//  An agent session of `make sim` drives a running app through the same
+//  socket, see `build/ios/sim.py` of hilen.
+//
 //  Requests, all positions in screen points:
 //
 //    tap <x> <y>          a tap on the screen
+//    double <x> <y>       2 taps, a double tap
+//    hold <x> <y> [s]     a finger held down, 1 s when no time is given
+//    swipe <x> <y> <x> <y> [s]
+//                         a finger that moves from the first point to the
+//                         second in the time, 0.3 s when none is given, and
+//                         lifts there while it still moves, like a flick
+//    drag <x> <y> <x> <y> [s]
+//                         a finger held on the first point for the time, 0.6 s
+//                         when none is given, that moves to the second point
+//                         and rests there before it lifts, like a row moved
+//    pinch <scale>        2 fingers at the middle of the screen, above 1 apart
+//                         and below 1 together
+//    screen               ok <width> <height>, the screen in points
+//    dump [system]        ok <tree>, what the app shows, the keyboard included,
+//                         or with `system` what the system shows over it, like
+//                         an alert. A line end is `\n` and a backslash `\\`
+//    batch <request>; <request>; ...
+//                         the requests in a row with no wait for the app to
+//                         stand still between them, so a swipe can land on a
+//                         view that still moves. `wait <s>` is a pause
 //    type <text>          taps the keys of the screen keyboard, one per character
 //    key return|delete    one named key of the screen keyboard
 //    keyboard <0|1>       waits until the keyboard is down or up
@@ -22,7 +45,43 @@
 //
 
 import Darwin
+import ObjectiveC
 import XCTest
+
+/// XCTest waits until the app on screen stands still before every gesture,
+/// so 2 swipes never meet a moving view. This switch skips that wait during a
+/// `batch`, the way WebDriverAgent does it: the wait method of the private
+/// `XCUIApplicationProcess` gets a body that asks the switch first.
+private enum IdleWait {
+    static var on = true
+
+    private typealias Wait = @convention(c) (AnyObject, Selector, Bool) -> Void
+    private typealias WaitPre = @convention(c) (AnyObject, Selector, Bool, Bool) -> Void
+
+    static let installed: Bool = {
+        guard let process = NSClassFromString("XCUIApplicationProcess") else { return false }
+        var done = false
+        let one = NSSelectorFromString("waitForQuiescenceIncludingAnimationsIdle:")
+        if let method = class_getInstanceMethod(process, one) {
+            let original = unsafeBitCast(method_getImplementation(method), to: Wait.self)
+            let body: @convention(block) (AnyObject, Bool) -> Void = { this, animations in
+                if IdleWait.on { original(this, one, animations) }
+            }
+            method_setImplementation(method, imp_implementationWithBlock(body))
+            done = true
+        }
+        let two = NSSelectorFromString("waitForQuiescenceIncludingAnimationsIdle:isPreEvent:")
+        if let method = class_getInstanceMethod(process, two) {
+            let original = unsafeBitCast(method_getImplementation(method), to: WaitPre.self)
+            let body: @convention(block) (AnyObject, Bool, Bool) -> Void = { this, animations, pre in
+                if IdleWait.on { original(this, two, animations, pre) }
+            }
+            method_setImplementation(method, imp_implementationWithBlock(body))
+            done = true
+        }
+        return done
+    }()
+}
 
 final class SystemInput: XCTestCase {
     private var app: XCUIApplication!
@@ -102,10 +161,64 @@ final class SystemInput: XCTestCase {
         let rest = parts.count > 1 ? parts[1] : ""
 
         switch command {
+        case "batch":
+            if !IdleWait.installed {
+                throw Failure(description: "this XCTest has no wait method to skip, a batch would wait like single requests")
+            }
+            IdleWait.on = false
+            defer { IdleWait.on = true }
+            var replies: [String] = []
+            for step in rest.split(separator: ";").map({ $0.trimmingCharacters(in: .whitespaces) }) where !step.isEmpty {
+                replies.append(try handle(step))
+            }
+            return replies.filter { !$0.isEmpty }.joined(separator: " ")
+        case "wait":
+            let seconds = try floats(rest, count: 1)[0]
+            Thread.sleep(forTimeInterval: seconds)
+            return ""
         case "tap":
             let numbers = try floats(rest, count: 2)
             point(numbers[0], numbers[1]).tap()
             return ""
+        case "double":
+            let numbers = try floats(rest, count: 2)
+            point(numbers[0], numbers[1]).doubleTap()
+            return ""
+        case "hold":
+            let numbers = try floats(rest, counts: [2, 3])
+            point(numbers[0], numbers[1]).press(forDuration: numbers.count == 3 ? numbers[2] : 1)
+            return ""
+        case "swipe":
+            let numbers = try floats(rest, counts: [4, 5])
+            let seconds = numbers.count == 5 ? numbers[4] : 0.3
+            try move(numbers, hold: 0.05, seconds: seconds, rest: 0)
+            return ""
+        case "drag":
+            let numbers = try floats(rest, counts: [4, 5])
+            let hold = numbers.count == 5 ? numbers[4] : 0.6
+            try move(numbers, hold: hold, seconds: 0.5, rest: 0.3)
+            return ""
+        case "pinch":
+            let scale = try floats(rest, count: 1)[0]
+            if scale <= 0 || scale == 1 {
+                throw Failure(description: "a pinch needs a scale above 0 that is not 1, got \(scale)")
+            }
+            // The velocity is in scale per second, its sign says apart or
+            // together, so the pinch takes about half a second.
+            try running().pinch(withScale: scale, velocity: (scale - 1) / 0.5)
+            return ""
+        case "screen":
+            let frame = springboard.frame
+            return "\(frame.width) \(frame.height)"
+        case "dump":
+            switch rest {
+            case "":
+                return oneLine(try tree(running()))
+            case "system":
+                return oneLine(try tree(springboard))
+            default:
+                throw Failure(description: "dump takes nothing or system, got '\(rest)'")
+            }
         case "type":
             for character in rest {
                 try tapKey(character)
@@ -118,10 +231,15 @@ final class SystemInput: XCTestCase {
             let up = rest == "1"
             let keyboard = app.keyboards.firstMatch
             let done = up
-                ? keyboard.waitForExistence(timeout: 10)
-                : waitUntilGone(keyboard, timeout: 10)
+                ? keyboard.waitForExistence(timeout: 10) && waitOnScreen(keyboard, timeout: 10)
+                : waitUntilDown(keyboard, timeout: 10)
             if !done {
-                throw Failure(description: "the keyboard is not \(up ? "up" : "down") after 10 s")
+                // A read of the frame of an element that is not there ends the
+                // whole test, and with it the helper.
+                let place = keyboard.exists ? "it is at \(keyboard.frame)" : "there is none"
+                throw Failure(
+                    description: "the keyboard is not \(up ? "up" : "down") after 10 s, \(place) on a screen of \(springboard.frame)"
+                )
             }
             return ""
         case "has":
@@ -147,14 +265,162 @@ final class SystemInput: XCTestCase {
         return numbers
     }
 
-    private func point(_ x: CGFloat, _ y: CGFloat) -> XCUICoordinate {
-        app.coordinate(withNormalizedOffset: .zero).withOffset(CGVector(dx: x, dy: y))
+    private func floats(_ text: String, counts: [Int]) throws -> [CGFloat] {
+        let numbers = text.split(separator: " ").compactMap { Double($0) }.map { CGFloat($0) }
+        if !counts.contains(numbers.count) {
+            let wanted = counts.map(String.init).joined(separator: " or ")
+            throw Failure(description: "expected \(wanted) numbers, got '\(text)'")
+        }
+        return numbers
     }
 
-    private func waitUntilGone(_ element: XCUIElement, timeout: TimeInterval) -> Bool {
-        let gone = NSPredicate(format: "exists == false")
-        let waiting = XCTNSPredicateExpectation(predicate: gone, object: element)
-        return XCTWaiter().wait(for: [waiting], timeout: timeout) == .completed
+    /// A point of the screen. The app holds it while it runs, the home screen
+    /// when the app is gone, so a tap after a crash does not end the helper.
+    private func point(_ x: CGFloat, _ y: CGFloat) -> XCUICoordinate {
+        let holder = app.state == .runningForeground ? app! : springboard
+        return holder.coordinate(withNormalizedOffset: .zero).withOffset(CGVector(dx: x, dy: y))
+    }
+
+    private func running() throws -> XCUIApplication {
+        if app.state != .runningForeground {
+            throw Failure(description: "the app is not in front")
+        }
+        return app
+    }
+
+    /// What `element` shows, 1 element per line, the children of an element
+    /// indented below it, with the frame in screen points.
+    private func tree(_ element: XCUIElement) throws -> String {
+        var lines: [String] = []
+        add(try element.snapshot(), depth: 0, to: &lines)
+        return lines.joined(separator: "\n")
+    }
+
+    private func add(_ node: XCUIElementSnapshot, depth: Int, to lines: inout [String]) {
+        var line = String(repeating: "  ", count: depth) + typeName(node.elementType)
+        if !node.label.isEmpty {
+            line += " '\(node.label)'"
+        }
+        if !node.identifier.isEmpty {
+            line += " id=\(node.identifier)"
+        }
+        if let value = node.value as? String, !value.isEmpty {
+            line += " value='\(value)'"
+        }
+        if !node.isEnabled {
+            line += " disabled"
+        }
+        if node.isSelected {
+            line += " selected"
+        }
+        let frame = node.frame
+        line += " [\(frame.minX), \(frame.minY)] \(frame.width)x\(frame.height)"
+        lines.append(line)
+        for child in node.children {
+            add(child, depth: depth + 1, to: &lines)
+        }
+    }
+
+    private func typeName(_ type: XCUIElement.ElementType) -> String {
+        switch type {
+        case .application: return "Application"
+        case .window: return "Window"
+        case .other: return "Other"
+        case .alert: return "Alert"
+        case .sheet: return "Sheet"
+        case .button: return "Button"
+        case .keyboard: return "Keyboard"
+        case .key: return "Key"
+        case .textField: return "TextField"
+        case .secureTextField: return "SecureTextField"
+        case .textView: return "TextView"
+        case .staticText: return "StaticText"
+        case .image: return "Image"
+        case .icon: return "Icon"
+        case .cell: return "Cell"
+        case .table: return "Table"
+        case .collectionView: return "CollectionView"
+        case .scrollView: return "ScrollView"
+        case .navigationBar: return "NavigationBar"
+        case .statusBar: return "StatusBar"
+        case .switch: return "Switch"
+        case .toolbar: return "Toolbar"
+        case .menu: return "Menu"
+        case .menuItem: return "MenuItem"
+        case .pickerWheel: return "PickerWheel"
+        case .webView: return "WebView"
+        case .group: return "Group"
+        default: return "Element\(type.rawValue)"
+        }
+    }
+
+    /// The home screen, which holds the alerts and sheets of the system and
+    /// is there whether the app runs or not.
+    private var springboard: XCUIApplication {
+        XCUIApplication(bundleIdentifier: "com.apple.springboard")
+    }
+
+    /// A finger on the first 2 of `numbers` for `hold` seconds, then a move
+    /// to the next 2 in `seconds`, then `rest` seconds there before it lifts.
+    private func move(_ numbers: [CGFloat], hold: CGFloat, seconds: CGFloat, rest: CGFloat) throws {
+        if seconds <= 0 {
+            throw Failure(description: "a move needs a time above 0, got \(seconds)")
+        }
+        let distance = hypot(numbers[2] - numbers[0], numbers[3] - numbers[1])
+        point(numbers[0], numbers[1]).press(
+            forDuration: hold,
+            thenDragTo: point(numbers[2], numbers[3]),
+            withVelocity: XCUIGestureVelocity(rawValue: max(distance / seconds, 1)),
+            thenHoldForDuration: rest
+        )
+    }
+
+    /// A tap of an element that is not there ends the whole test, and with it
+    /// the helper, so it is checked first.
+    private func tapIfThere(_ element: XCUIElement, _ missing: String) throws {
+        if !element.exists {
+            throw Failure(description: missing)
+        }
+        element.tap()
+    }
+
+    private func oneLine(_ text: String) -> String {
+        text.replacingOccurrences(of: "\\", with: "\\\\").replacingOccurrences(of: "\n", with: "\\n")
+    }
+
+    /// A keyboard that went down can stay in the tree below the screen, it
+    /// counts as down then, seen on 2026-11-07.
+    private func waitUntilDown(_ keyboard: XCUIElement, timeout: TimeInterval) -> Bool {
+        let screen = springboard.frame
+        let end = Date().addingTimeInterval(timeout)
+        while Date() < end {
+            if !keyboard.exists || keyboard.frame.minY >= screen.maxY {
+                return true
+            }
+            Thread.sleep(forTimeInterval: 0.1)
+        }
+        return false
+    }
+
+    /// The keyboard is there from the moment it starts to slide in, while its
+    /// keys are still below the screen and a tap on one lands on nothing, seen
+    /// on 2026-11-07. This waits until its top is on the screen and still.
+    private func waitOnScreen(_ keyboard: XCUIElement, timeout: TimeInterval) -> Bool {
+        let screen = springboard.frame
+        var last = keyboard.frame.minY
+        let end = Date().addingTimeInterval(timeout)
+        while Date() < end {
+            Thread.sleep(forTimeInterval: 0.1)
+            if !keyboard.exists {
+                return false
+            }
+            let top = keyboard.frame.minY
+            if top < screen.maxY && top == last {
+                return true
+            }
+            last = top
+        }
+        return false
     }
 
     private func tapNamedKey(_ name: String) throws {
@@ -183,9 +449,12 @@ final class SystemInput: XCTestCase {
         if !keyboard.waitForExistence(timeout: 10) {
             throw Failure(description: "no keyboard to type '\(character)' on")
         }
+        if !waitOnScreen(keyboard, timeout: 10) {
+            throw Failure(description: "the keyboard did not come onto the screen to type '\(character)'")
+        }
 
         if character == " " {
-            keyboard.keys["space"].tap()
+            try tapIfThere(keyboard.keys["space"], "the keyboard has no space key")
             return
         }
 
@@ -195,27 +464,41 @@ final class SystemInput: XCTestCase {
             return
         }
 
+        // Shift goes from off to on to caps lock and back to off. A test before
+        // could leave the keyboard in caps lock, and 1 tap then gave capitals
+        // again, seen on 2026-11-07.
         if character.isLetter {
-            keyboard.buttons["shift"].tap()
-            if keyboard.keys[name].exists {
-                keyboard.keys[name].tap()
-                return
+            for _ in 0..<3 {
+                try tapIfThere(keyboard.buttons["shift"], "the keyboard has no shift key to type '\(name)'")
+                if keyboard.keys[name].exists {
+                    keyboard.keys[name].tap()
+                    return
+                }
             }
             throw Failure(description: "the keyboard has no '\(name)' key, also not behind shift")
         }
 
-        let more = keyboard.keys["more"]
-        if !more.exists {
-            throw Failure(description: "the keyboard has no '\(name)' key and no second page")
+        // A test before can leave the keyboard on another page, so 1 tap of
+        // more can lead away from the digits, seen on 2026-11-07.
+        var found = false
+        for _ in 0..<2 {
+            let more = keyboard.keys["more"]
+            if !more.exists {
+                throw Failure(description: "the keyboard has no '\(name)' key and no second page")
+            }
+            more.tap()
+            if keyboard.keys[name].exists {
+                found = true
+                break
+            }
         }
-        more.tap()
-        guard keyboard.keys[name].exists else {
+        guard found else {
             throw Failure(description: "the keyboard has no '\(name)' key, also not on the second page")
         }
         keyboard.keys[name].tap()
         // A space or a letter flips the page back by itself, a digit does not.
         if keyboard.keys["more"].exists && !keyboard.keys["q"].exists && !keyboard.keys["Q"].exists {
-            keyboard.keys["more"].tap()
+            try tapIfThere(keyboard.keys["more"], "the keyboard lost its more key")
         }
     }
 
